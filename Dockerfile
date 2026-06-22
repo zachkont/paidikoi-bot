@@ -7,4 +7,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY bot.mjs .
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD pgrep -x node || exit 1
 CMD ["node", "bot.mjs"]

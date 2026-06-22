@@ -5,5 +5,3 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    labels:
-      - "proxy.exclude=1"
