@@ -1,9 +1,11 @@
 {
   "name": "telegram-scraper-bot",
   "type": "module",
-  "scripts": { "start": "node bot.mjs" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env bot.mjs"
+  },
   "dependencies": {
-    "cheerio": "^1.0.0",
-    "node-cron": "^3.0.3"
+    "cheerio": "^1.2.0",
+    "node-cron": "^4.5.0"
   }
 }
