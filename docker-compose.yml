@@ -6,4 +6,5 @@ services:
     env_file:
       - .env
     labels:
-      - "proxy.#1.port=80"
+      - "proxy.#1.port=3000"
+      - "proxy.#1.healthcheck.path=/health"

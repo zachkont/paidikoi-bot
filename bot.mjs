@@ -1,3 +1,4 @@
+import { createServer } from "node:http";
 import * as cron from "node-cron";
 import * as cheerio from "cheerio";
 
@@ -193,6 +194,14 @@ async function performCheck(dryRun = false) {
     return null;
   }
 }
+
+createServer((req, res) => {
+  if (req.url === "/health") {
+    res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify({ status: "ok" }));
+  } else {
+    res.writeHead(404).end();
+  }
+}).listen(3000);
 
 cron.schedule(CRON_SCHEDULE, () => performCheck());
 
