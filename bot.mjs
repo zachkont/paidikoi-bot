@@ -1,3 +1,4 @@
+import { createServer } from "node:http";
 import * as cron from "node-cron";
 import * as cheerio from "cheerio";
 
@@ -175,6 +176,8 @@ async function sendTelegram(text) {
   }
 }
 
+let lastSuccess = null;
+
 async function performCheck(dryRun = false) {
   try {
     const session = await login();
@@ -187,12 +190,22 @@ async function performCheck(dryRun = false) {
       console.log("Sent successfully");
     }
     await checkInbox(session, dryRun);
+    if (!dryRun) lastSuccess = Date.now();
     return data;
   } catch (err) {
     console.error("Error:", err.message);
     return null;
   }
 }
+
+createServer((req, res) => {
+  if (req.url === "/health") {
+    const body = JSON.stringify({ lastSuccess });
+    res.writeHead(200, { "Content-Type": "application/json" }).end(body);
+  } else {
+    res.writeHead(404).end();
+  }
+}).listen(3000);
 
 cron.schedule(CRON_SCHEDULE, () => performCheck());
 
