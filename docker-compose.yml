@@ -8,4 +8,4 @@ services:
     ports:
       - "3000:3000"
     labels:
-      - "proxy.healthcheck.path=/health"
+      - "proxy.#1.healthcheck.path=/health"
