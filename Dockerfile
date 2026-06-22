@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:24-alpine
 RUN apk add --no-cache chromium font-freefont tzdata && \
     ln -snf /usr/share/zoneinfo/Europe/Athens /etc/localtime && \
     echo "Europe/Athens" > /etc/timezone
