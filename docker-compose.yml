@@ -1,6 +1,7 @@
 services:
   bot:
     build: .
+    container_name: paidikoi-bot
     restart: unless-stopped
     env_file:
       - .env
